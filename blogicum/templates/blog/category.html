@@ -4,9 +4,9 @@
 {% endblock %}
 {% block content %}
 <h1>Публикации в категории «{{ category.title }}»</h1>
-<p class="mb-5">{{ category.description }}</p>
-{% for post in post_list %}
-  <article class="mb-5">  
+<p class="mb-3">{{ category.description }}</p>
+{% for post in posts %}
+  <article class="mb-3">  
     {% include "includes/post_card.html" %}
   </article>   
 {% endfor %}
