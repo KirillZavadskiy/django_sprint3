@@ -75,7 +75,7 @@ class Post(models.Model):
         models.SET_NULL,
         null=True,
         verbose_name='Категория'
-        )
+    )
     is_published = models.BooleanField(
         default=True, verbose_name='Опубликовано',
         help_text='Снимите галочку, чтобы скрыть публикацию.'
