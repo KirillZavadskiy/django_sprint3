@@ -43,10 +43,6 @@ def category_posts(request, category_slug):
         slug=category_slug,
         is_published=True,
     )
-    posts = Post.objects.filter(
-        category=category,
-        is_published=True,
-        pub_date__lte=timezone.now()
-    )
+    posts = get_short_code().filter(category=category)
     context = {'posts': posts, 'category': category}
     return render(request, 'blog/category.html', context)

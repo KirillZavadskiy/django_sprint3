@@ -2,10 +2,12 @@ from django.contrib.auth import get_user_model
 from django.db import models
 
 User = get_user_model()
+AMT_SIGN_TITLE = 30
 
 
-class BaseModel(models.Model):
+class PubCreatModel(models.Model):
     '''Абстрактная модель.'''
+
     is_published = models.BooleanField(
         'Опубликовано',
         default=True,
@@ -20,8 +22,9 @@ class BaseModel(models.Model):
         abstract = True
 
 
-class Category(BaseModel):
+class Category(PubCreatModel):
     '''Модель Категорий.'''
+
     title = models.CharField(max_length=256, verbose_name='Заголовок')
     description = models.TextField(verbose_name='Описание')
     slug = models.SlugField(
@@ -36,11 +39,12 @@ class Category(BaseModel):
         verbose_name_plural = 'Категории'
 
     def __str__(self):
-        return self.title[:30]
+        return self.title[:AMT_SIGN_TITLE]
 
 
-class Location(BaseModel):
+class Location(PubCreatModel):
     '''Модель Локаций.'''
+
     name = models.CharField(
         'Название места',
         max_length=256,
@@ -51,11 +55,12 @@ class Location(BaseModel):
         verbose_name_plural = 'Местоположения'
 
     def __str__(self):
-        return self.name[:30]
+        return self.name[:AMT_SIGN_TITLE]
 
 
-class Post(BaseModel):
+class Post(PubCreatModel):
     '''Модель Публикаций.'''
+
     title = models.CharField('Заголовок', max_length=256)
     text = models.TextField('Текст')
     pub_date = models.DateTimeField(
@@ -67,7 +72,7 @@ class Post(BaseModel):
         User,
         verbose_name='Автор публикации',
         on_delete=models.CASCADE,
-        related_name='+',
+        related_name='posts',
     )
     location = models.ForeignKey(
         Location,
